@@ -1,0 +1,9 @@
+.classpath
+.cache-main
+.git
+bin
+target/
+.settings
+./project
+./target
+.project
