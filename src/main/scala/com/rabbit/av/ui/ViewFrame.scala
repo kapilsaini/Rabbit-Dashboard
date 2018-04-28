@@ -15,13 +15,11 @@ class ViewFrame() extends Panel {
   
   private var bufferedImage: BufferedImage = null
   val config = ConfigFactory.load()
-  
   val width = config.getInt("imageWidth")
   val height = config.getInt("imageHeight")
   
   val affineTransformation = new AffineTransform(1f,0f,0f,1f,10, 10)
   preferredSize = new Dimension(width, height)
-  focusable = false
   override def paint(g: Graphics2D) {
     var x: Boolean = false
     g.drawImage(bufferedImage, affineTransformation , null)

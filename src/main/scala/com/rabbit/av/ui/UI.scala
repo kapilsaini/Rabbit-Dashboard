@@ -27,13 +27,10 @@ class UI extends MainFrame {
   import javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE
   peer.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE)
   
-  println("Creating new UI")
-  
   override def closeOperation() {
     println("Custom close operation")
-    Application.shutdownApplication()
+    Application.shutdownSystem()
     super.closeOperation()
-    sys.exit()
   } 
   title = "Rabbit Dashboard"    
   val steerLabel = new Label("")

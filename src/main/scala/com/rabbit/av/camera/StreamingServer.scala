@@ -12,19 +12,23 @@ import com.rabbit.av.ui.UI
 import akka.actor.Actor
 import akka.stream.ActorMaterializer
 import javax.imageio.ImageIO
+import com.typesafe.config.ConfigFactory
 
-class NewServer(top: UI) extends Actor {
+
+class StreamingServer(top: UI) extends Actor {
   implicit val materializer = ActorMaterializer()(context.system)
   var socketServer: ServerSocket = null
   var server: Socket = null
 
-  println("Creating newServer")
-	val host: String = "127.0.0.1"
-	val port: Int = 8080
-	private val MAX_IMG = 1024 * 1024 * 50
+  lazy val config = ConfigFactory.load()
+  
+	val port: Int = config.getInt("streamingPort")
+	
+	private val MAX_IMG = 1024 * 1024 * 1024
 	
 	def receive = {
     case "INIT" => run()
+    case "TERMINATE" => shutdown()
   }
   def run() {
     socketServer = new ServerSocket(port)
@@ -57,5 +61,11 @@ class NewServer(top: UI) extends Actor {
           e.printStackTrace()
       }
     }
+  }
+  def shutdown(){
+    if (server != null && !server.isClosed())
+      server.close()
+    if (socketServer != null && !socketServer.isClosed())
+      socketServer.close()
   }
 }
