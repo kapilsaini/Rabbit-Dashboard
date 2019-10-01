@@ -99,6 +99,5 @@ object TestSocketServer {
                                                   //| Output exceeds cutoff limit.
 	  
   connection.join(repl).run()                     //> res0: scala.concurrent.Future[akka.stream.scaladsl.Tcp.OutgoingConnection] 
-                                                  //| = List()\
-
+                                                  //| = List()
 }
